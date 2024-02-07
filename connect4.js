@@ -13,6 +13,8 @@ const HEIGHT = 6;
 let currPlayer = 1; // active player: 1 or 2
 const board = []; // array of rows, each row is array of cells  (board[y][x])
 // (board[5][0] would be the bottom-left spot on the board)
+const htmlBoard = document.getElementById("board");
+
 
 /** makeBoard: fill in global `board`:
  *    board = array of rows, each row is array of cells  (board[y][x])
@@ -20,41 +22,39 @@ const board = []; // array of rows, each row is array of cells  (board[y][x])
 
 // Could change parameters later
 function makeBoard() {
-  // TODO: set "board" to empty HEIGHT x WIDTH matrix array
+  // set "board" to empty HEIGHT x WIDTH matrix array
   // Use a nested for loop to make the board
   // Outside for loop being the height
-  for (let i = 0; i < HEIGHT; i++) {
-    const innerArray = [];
+  // Keep using y and x for loops
+  for (let y = 0; y < HEIGHT; y++) {
+  // Row would be better name, simpler
+    const row = [];
     // Nested loop being the width
-    for (let j = 0; j < WIDTH; j++) {
-      innerArray.push(null);
+    for (let x = 0; x < WIDTH; x++) {
+      row.push(null);
     }
-    board.push(innerArray);
+    board.push(row);
   }
 }
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
-/*
 
+/*
 fill missing comments, line 45, 49
 create DOM elements => rowElement, tableCellElements using for loops
 add IDs to rowElement, tableCellElements id = c-y-x
 append table cell elements to table row, append to our html board
-
-
 stick to indexing starting at 0
-
 */
-function makeHtmlBoard() {
-  const htmlBoard = document.getElementById("board");
 
+function makeHtmlBoard() {
   // create top table row element, give id of column top
   const top = document.createElement("tr");
   top.setAttribute("id", "column-top");
 
-  // creating table data for WIDTH, give each td top-x position, add click listener to td
+  // creating table data for WIDTH, give each td top-x position, add click listener to td for the user to click on
+  // which column they want to place their piece
   // append headcell to top table row
-
 
   for (let x = 0; x < WIDTH; x++) {
     const headCell = document.createElement("td");
@@ -72,24 +72,24 @@ function makeHtmlBoard() {
   // uses WIDTH to create table cells for each row
 
   for (let y = 0; y < HEIGHT; y++) {
-    // TODO: Create a table row element and assign to a "row" variable
+    // Create a table row element and assign to a "row" variable
     let row = document.createElement('tr');
 
     for (let x = 0; x < WIDTH; x++) {
-      // TODO: Create a table cell element and assign to a "cell" variable
+      // Create a table cell element and assign to a "cell" variable
 
-      // TODO: add an id, c-y-x, to the table cell element
+      // add an id, c-y-x, to the table cell element
       //   (for example, for the cell at y=2, x=3, the ID should be "c-2-3")
       let cell = document.createElement('td');
       cell.setAttribute('id', `c-${y}-${x}`);
 
 
-      // TODO: append the table cell to the table row
+      // append the table cell to the table row
       row.append(cell);
 
     }
 
-    // TODO: append the row to the html board
+    // append the row to the html board
     htmlBoard.append(row);
 
   }
@@ -99,14 +99,38 @@ function makeHtmlBoard() {
  *    (return null if filled) */
 
 function findSpotForCol(x) {
-  // TODO: write the real version of this, rather than always returning 5
-  return 5;
+  // write the real version of this, rather than always returning 5
+  // Iterate through the board using a for loop
+  // Possibly need to change variable name
+  // Start from the last array
+  for (let y = HEIGHT-1; y >= 0; y--){
+  // In each array, access each specific cell data
+  // Within the for loop if we access a null value
+    if (board[y][x] === null){
+  // Return y coordinate
+      return y;
+    }
+  }
+  // Return null
+  return null;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 function placeInTable(y, x) {
-  // TODO: make a div and insert into correct table cell
+  // Make a div and insert into correct table cell
+  // Declare variable cell for td cell
+  const cell = document.getElementById(`c-${y}-${x}`);
+  // Make a div element
+  const piece = document.createElement("div");
+  // add to class list, the piece class and a current player class
+  piece.classList.add("piece");
+  if (currPlayer === 1){
+    piece.classList.add("p1");
+  } else {
+    piece.classList.add("p2");
+  }
+  cell.append(piece);
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */

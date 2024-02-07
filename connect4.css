@@ -7,9 +7,17 @@
 }
 
 /* pieces are div within game table cells: draw as colored circles */
+.p1 {
+  background-color: red;
+}
+
+.p2 {
+  background-color: blue;
+}
 
 .piece {
   /* TODO: make into circles */
+  border-radius: 1000px;
   margin: 5px;
   width: 80%;
   height: 80%;
