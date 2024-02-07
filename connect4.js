@@ -34,39 +34,63 @@ function makeBoard() {
 }
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
+/*
 
+fill missing comments, line 45, 49
+create DOM elements => rowElement, tableCellElements using for loops
+add IDs to rowElement, tableCellElements id = c-y-x
+append table cell elements to table row, append to our html board
+
+
+stick to indexing starting at 0
+
+*/
 function makeHtmlBoard() {
   const htmlBoard = document.getElementById("board");
 
-  // TODO: add comment for this code
+  // create top table row element, give id of column top
   const top = document.createElement("tr");
   top.setAttribute("id", "column-top");
 
-  // TODO: add comment for this code
+  // creating table data for WIDTH, give each td top-x position, add click listener to td
+  // append headcell to top table row
+
+
   for (let x = 0; x < WIDTH; x++) {
     const headCell = document.createElement("td");
     headCell.setAttribute("id", `top-${x}`);
     headCell.addEventListener("click", handleClick);
     top.append(headCell);
   }
+
+  // appending toptable row to html board
+
   htmlBoard.append(top);
 
   // dynamically creates the main part of html board
   // uses HEIGHT to create table rows
   // uses WIDTH to create table cells for each row
+
   for (let y = 0; y < HEIGHT; y++) {
     // TODO: Create a table row element and assign to a "row" variable
+    let row = document.createElement('tr');
 
     for (let x = 0; x < WIDTH; x++) {
       // TODO: Create a table cell element and assign to a "cell" variable
 
-      // TODO: add an id, c-y-x, to the above table cell element
+      // TODO: add an id, c-y-x, to the table cell element
       //   (for example, for the cell at y=2, x=3, the ID should be "c-2-3")
+      let cell = document.createElement('td');
+      cell.setAttribute('id', `c-${y}-${x}`);
+
 
       // TODO: append the table cell to the table row
+      row.append(cell);
 
     }
+
     // TODO: append the row to the html board
+    htmlBoard.append(row);
 
   }
 }
